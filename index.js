@@ -8,7 +8,11 @@ app.use(express.json());
 app.use(express.urlencoded({ xtended: true }));
 app.use(express.static("public"));
 app.use(helmet());
-app.use(morgan("tiny"));
+
+if (app.get("env") === "development") {
+  app.use(morgan("tiny"));
+  console.log("Morgan enabled...");
+}
 
 app.get("/", (req, res) => {
   res.send("hello world");
